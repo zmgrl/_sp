@@ -1,14 +1,22 @@
+# 習題五
+
+產生組合語言.s檔
+
 ```
 gcc -S power2.c -o power2
-    ./power2.c
 ```
+
+編譯為目的檔.o檔
+
 ```
-gcc -c power2.s -o power2.c
+gcc -c sum.s -o sum.o
 ```
+
+將該目的檔反組譯 
+
 ```
 objdump -d power2.o
-```
-```
+
 power2.o:     file format elf64-x86-64
 
 Disassembly of section .text:
@@ -32,23 +40,16 @@ Disassembly of section .text:
 
 000000000000002f <main>:
   2f:   f3 0f 1e fa             endbr64
-  33:   55                      push   %rbp
-  34:   48 89 e5                mov    %rsp,%rbp
-  37:   bf 03 00 00 00          mov    $0x3,%edi
-  3c:   e8 00 00 00 00          call   41 <main+0x12>
-  41:   89 c6                   mov    %eax,%esi
-  43:   48 8d 05 00 00 00 00    lea    0x0(%rip),%rax        # 4a <main+0x1b>
-  4a:   48 89 c7                mov    %rax,%rdi
-  4d:   b8 00 00 00 00          mov    $0x0,%eax
-  52:   e8 00 00 00 00          call   57 <main+0x28>
-  57:   b8 00 00 00 00          mov    $0x0,%eax
+  33:   55      00 00 00 00          mov    $0x0,%eax
   5c:   5d                      pop    %rbp
   5d:   c3                      ret
 ```
+
+將該目的檔的表頭印出來
+
 ```
 objdump -h power2.o
-```
-```
+
 power2.o:     file format elf64-x86-64
 
 Sections:
@@ -69,4 +70,13 @@ Idx Name          Size      VMA               LMA               File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   7 .eh_frame     00000058  0000000000000000  0000000000000000  000000f8  2**3
                   CONTENTS, ALLOC, LOAD, RELOC, READONLY, DATA
-```
+```                 push   %rbp
+  34:   48 89 e5                mov    %rsp,%rbp
+  37:   bf 03 00 00 00          mov    $0x3,%edi
+  3c:   e8 00 00 00 00          call   41 <main+0x12>
+  41:   89 c6                   mov    %eax,%esi
+  43:   48 8d 05 00 00 00 00    lea    0x0(%rip),%rax        # 4a <main+0x1b>
+  4a:   48 89 c7                mov    %rax,%rdi
+  4d:   b8 00 00 00 00          mov    $0x0,%eax
+  52:   e8 00 00 00 00          call   57 <main+0x28>
+  57:   b8
