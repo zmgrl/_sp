@@ -13,12 +13,12 @@ def fetch_page(page):
         return
     
     soup = BeautifulSoup(r.text, "html.parser")
-    sel = soup.select("div.essay a")  # 確認選擇器是否正確
+    sel = soup.select("div.essay a") 
     
     print(f"本頁的 URL: {url}")
     for link in sel:
         href = link.get("href")
-        if href.startswith("http"):  # 避免重複拼接完整網址
+        if href.startswith("http"): 
             full_url = href
         else:
             full_url = "https://tam.gov.taipei/" + href
@@ -26,13 +26,11 @@ def fetch_page(page):
         print("連結文字:", link.text.strip())
         print("連結:", full_url)
 
-# 建立並行執行的多個執行緒
 threads = []
 for i in range(1, 11):
     thread = threading.Thread(target=fetch_page, args=(i,))
     threads.append(thread)
     thread.start()
 
-# 確保所有執行緒完成
 for thread in threads:
     thread.join()
